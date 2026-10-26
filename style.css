@@ -1,0 +1,104 @@
+/* Layout: a student "prospectus" — company-profile structure, with Euberth as the venture. */
+:root{
+  --bg:#EEF1EF; --surface:#E2E8E4; --ink:#0E2A23; --muted:#4A5F57; --line:#C2CEC8; --accent:#B8710A; --accent-ink:#FFFFFF;
+  --f-display:'Bricolage Grotesque','Arial Narrow',Arial,sans-serif;
+  --f-body:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1A16;--surface:#12261F;--ink:#E7EFEA;--muted:#9DB3A9;--line:#274238;--accent:#F0A63A;--accent-ink:#0B1A16;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0B1A16;--surface:#12261F;--ink:#E7EFEA;--muted:#9DB3A9;--line:#274238;--accent:#F0A63A;--accent-ink:#0B1A16;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:980px;margin:0 auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.mono{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.02;letter-spacing:-.02em}
+p{margin:0}
+
+/* top strip */
+.strip{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:18px;border-bottom:1px solid var(--line)}
+.strip span{min-width:0}
+
+/* hero */
+.hero{padding-block:56px 48px;display:grid;gap:28px}
+.hero h1{font-size:clamp(46px,11vw,112px);font-weight:800}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lede{max-width:34em;font-size:clamp(18px,2.4vw,22px);color:var(--muted)}
+.hero .lede b{color:var(--ink);font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{border:1px solid var(--line);padding:6px 12px;border-radius:99px;font-size:14px}
+
+/* photos */
+@media(min-width:760px){.hero{grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);column-gap:48px;align-items:start}.hero>*{grid-column:1}.hero>figure{grid-column:2;grid-row:1/span 5}}
+figure{margin:0}
+figure img{display:block;width:100%;height:auto;background:var(--surface)}
+.hero>figure img{aspect-ratio:4/5;object-fit:cover;object-position:50% 20%}
+figure figcaption{margin-top:10px}
+.band{padding-block:64px 0}
+.band img{aspect-ratio:16/9;object-fit:cover;object-position:50% 25%}
+
+/* ledger facts */
+.ledger{border-top:2px solid var(--ink);border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.ledger div{padding:18px 16px 18px 0;min-width:0}
+.ledger div+div{padding-left:16px;border-left:1px solid var(--line)}
+.ledger strong{display:block;font-family:var(--f-display);font-size:28px;font-weight:700;line-height:1.1;margin-top:6px;font-variant-numeric:tabular-nums}
+@media(max-width:620px){.ledger div+div{border-left:0;padding-left:0;border-top:1px solid var(--line)}}
+
+section{padding-block:64px 0}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.head h2{font-size:clamp(32px,6vw,52px);font-weight:700}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.about p{color:var(--muted)}
+.about p b{color:var(--ink)}
+.about .big{font-family:var(--f-display);font-size:clamp(24px,3.4vw,34px);line-height:1.2;color:var(--ink);font-weight:500;text-wrap:balance}
+@media(max-width:720px){.about{grid-template-columns:1fr}}
+
+/* skills as strength bars */
+.skills{display:grid;gap:0}
+.skill{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:8px 24px;padding-block:18px;border-top:1px solid var(--line);align-items:center}
+.skill:last-child{border-bottom:1px solid var(--line)}
+.skill h3{font-size:24px;font-weight:700}
+.skill small{display:block;color:var(--muted);font-size:15px;margin-top:4px;line-height:1.4}
+.bar{height:10px;background:var(--surface);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+@media(max-width:620px){.skill{grid-template-columns:1fr}}
+
+/* roadmap */
+.road{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+.road li{display:grid;grid-template-columns:130px minmax(0,1fr);gap:20px;padding-block:22px;border-top:1px solid var(--line)}
+.road li:last-child{border-bottom:1px solid var(--line)}
+.road h3{font-size:26px;font-weight:700;margin-bottom:6px}
+.road p{color:var(--muted)}
+.road li.now{background:var(--surface);margin-inline:-16px;padding-inline:16px}
+.road li.now .mono{color:var(--accent)}
+@media(max-width:560px){.road li{grid-template-columns:1fr;gap:6px}}
+
+/* interests */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:var(--surface);padding:22px;display:grid;gap:8px;align-content:start}
+.card h3{font-size:24px;font-weight:700}
+.card p{color:var(--muted);font-size:16px}
+
+/* connect */
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.link{display:grid;gap:6px;padding:22px;border:1px solid var(--line);text-decoration:none;min-width:0;transition:background .2s,border-color .2s}
+.link:hover{background:var(--surface);border-color:var(--accent)}
+.link h3{font-size:28px;font-weight:700}
+.link .go{color:var(--accent);font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+
+.mail{display:grid;gap:6px;padding:22px;border:1px solid var(--line);min-width:0}
+.mail h3{font-size:clamp(20px,3.2vw,26px);font-weight:700;overflow-wrap:anywhere}
+.mail button{justify-self:start;margin-top:4px;font:inherit;font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--accent-ink);border:0;padding:10px 16px;cursor:pointer}
+.mail button:hover{filter:brightness(1.08)}
+
+/* quote */
+.quote{margin-top:64px;background:var(--ink);color:var(--bg);padding:clamp(28px,6vw,64px)}
+.quote p{font-family:var(--f-display);font-size:clamp(26px,5vw,48px);line-height:1.1;font-weight:700;text-wrap:balance;max-width:18em}
+.quote p em{font-style:normal;color:var(--accent)}
+.quote .mono{color:var(--bg);opacity:.7;margin-top:20px;display:block}
+
+footer{padding-block:32px 48px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(prefers-reduced-motion:no-preference){.bar i{transform-origin:left;animation:grow .9s cubic-bezier(.2,.7,.2,1) both}@keyframes grow{from{transform:scaleX(0)}}}
